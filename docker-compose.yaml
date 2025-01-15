@@ -1,0 +1,33 @@
+services:
+
+  postgres:
+    image: "postgres"
+    volumes:
+      - ./database:/var/lib/postgresql/data
+    env_file:
+      - ./env/postgres.env
+    ports:
+      - "5432:5432"
+
+  caroption-back:
+    build: ./caroptionshop-back-django
+    volumes:
+      - uploads:/uploads
+      - ./caroptionshop-back-django:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+
+  caroption-front:
+    build: ./caroptionshop-front-nextjs-mui
+    volumes: 
+      - "/node_modules"
+      - ./caroptionshop-front-nextjs-mui:/app
+    ports: 
+      - "3000:3000"
+    depends_on:
+      - caroption-back
+
+volumes:
+  uploads:
