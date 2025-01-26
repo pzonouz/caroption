@@ -14,6 +14,7 @@ urlpatterns = [
     path("api/v1/products/", include("products.urls")),
     path("api/v1/files/", include("files.urls")),
     path("api/v1/specifications/", include("specifications.urls")),
+    path("api/v1/search", include("search.urls")),
 ]
 urlpatterns += router.urls
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

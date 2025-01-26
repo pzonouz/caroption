@@ -15,7 +15,7 @@ const CreateProductAction = async (
   formData: FormData,
 ) => {
   if (image) {
-    formData.append("image", image?.uuid);
+    formData.append("image", image?.title);
   } else {
     formData.append("image", "");
   }
@@ -66,7 +66,7 @@ const UpdateProductAction = async (
   formData: FormData,
 ) => {
   if (image) {
-    formData.append("image", image?.uuid);
+    formData.append("image", image?.title);
   } else {
     formData.append("image", "");
   }

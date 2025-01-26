@@ -13,7 +13,7 @@ class ProductSerializer(serializers.ModelSerializer):
         required=False,
     )
     image = serializers.SlugRelatedField(
-        slug_field="uuid",
+        slug_field="title",
         queryset=File.objects.all(),
     )
     images = serializers.SlugRelatedField(

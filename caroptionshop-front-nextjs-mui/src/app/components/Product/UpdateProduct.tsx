@@ -62,7 +62,6 @@ const UpdateProduct = ({
   categories: CategoryType[];
   images: FileType[];
 }) => {
-  console.log(product);
   const image = useSelector((state: RootState) => state.ImageGallery.image);
   const selectedImages = useSelector(
     (state: RootState) => state.ImageGallery.images,
@@ -101,7 +100,7 @@ const UpdateProduct = ({
 
   useEffect(() => {
     dispatch(
-      setImage(images?.filter((image) => image?.uuid == product?.image)?.[0]),
+      setImage(images?.filter((image) => image?.title == product?.image)?.[0]),
     );
     images?.map((image) => {
       if (product?.images?.includes(image?.uuid)) {
