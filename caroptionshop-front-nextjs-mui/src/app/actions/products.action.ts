@@ -15,7 +15,7 @@ const CreateProductAction = async (
   formData: FormData,
 ) => {
   if (image) {
-    formData.append("image", image?.title);
+    formData.append("image", image?.uuid);
   } else {
     formData.append("image", "");
   }
@@ -39,6 +39,7 @@ const CreateProductAction = async (
   validatedData.data.quantity = validatedData.data.quantity?.replace(/,/g, "");
   validatedData.data.price = validatedData.data.price?.replace(/,/g, "");
   validatedData.data.price2 = validatedData.data.price2?.replace(/,/g, "");
+  console.log(validatedData.data);
   const res = await fetch(`${process.env.BACKEND_URL}/products/`, {
     method: "POST",
     headers: {

@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from "react-redux";
 
 const SelectedImage = ({ readOnly }: { readOnly?: boolean }) => {
   const image = useSelector((state: RootState) => state.ImageGallery.image);
-  console.log(image);
   const dispatch = useDispatch();
   return (
     <Box sx={{ position: "relative" }}>

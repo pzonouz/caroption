@@ -100,7 +100,9 @@ const UpdateProduct = ({
 
   useEffect(() => {
     dispatch(
-      setImage(images?.filter((image) => image?.title == product?.image)?.[0]),
+      setImage(
+        images?.filter((image) => image?.title == product?.image?.title)?.[0],
+      ),
     );
     images?.map((image) => {
       if (product?.images?.includes(image?.uuid)) {

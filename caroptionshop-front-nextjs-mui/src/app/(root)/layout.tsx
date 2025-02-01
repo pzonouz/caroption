@@ -6,5 +6,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return <section><TopBar/><TopComponent/>{children}</section>;
+  return (
+    <section>
+      <TopBar />
+      <TopComponent />
+      {children}
+    </section>
+  );
 }

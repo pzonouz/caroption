@@ -13,8 +13,10 @@ class ProductSerializer(serializers.ModelSerializer):
         required=False,
     )
     image = serializers.SlugRelatedField(
-        slug_field="title",
+        slug_field="uuid",
         queryset=File.objects.all(),
+        allow_null=True,
+        required=False,
     )
     images = serializers.SlugRelatedField(
         many=True,
@@ -27,6 +29,22 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        exclude = [
-            "id",
-        ]
+        fields = (
+            "category",
+            "image",
+            "images",
+            "specifications",
+            "uuid",
+            "title",
+            "subtitle",
+            "weight",
+            "status",
+            "quantity",
+            "price",
+            "price2",
+            "description",
+            "cons",
+            "pros",
+            "discount",
+            "review",
+        )
