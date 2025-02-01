@@ -5,6 +5,7 @@ const CategorySchema = z.object({
   title: z.string().min(1, { message: "لطفا عنوان را وارد کنید" }),
   description: z.string().nullish(),
   parent: z.string().nullish(),
+  order: z.string().default("0"),
   status: z.boolean().default(true),
   image: z.string().min(1, { message: "لطفا عکس را انتخاب کنید" }),
   children: z.array(z.any()).nullish(),

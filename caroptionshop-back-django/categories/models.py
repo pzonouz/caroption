@@ -1,9 +1,8 @@
 import uuid
 
+from base.models import BaseModel
 from django.db import models
 from django.db.models.fields.related import ForeignKey
-
-from base.models import BaseModel
 
 
 class Category(BaseModel):
@@ -12,6 +11,7 @@ class Category(BaseModel):
     )
     title = models.CharField(max_length=255)
     description = models.TextField(null=True, blank=True)
+    order = models.IntegerField(default=0)
     status = models.BooleanField(default=True)
     image = models.ForeignKey(
         "files.File",

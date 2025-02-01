@@ -1,9 +1,7 @@
 "use client";
 
-import {
-  CategoryType,
-  DeleteCategoryAction,
-} from "@/app/actions/categories.action";
+import { DeleteCategoryAction } from "@/app/actions/categories.action";
+import { CategoryType } from "@/types/category";
 import { LoadingButton } from "@mui/lab";
 import { Box, Button, Typography } from "@mui/material";
 import { useActionState, useEffect } from "react";

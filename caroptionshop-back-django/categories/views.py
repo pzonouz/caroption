@@ -8,7 +8,7 @@ from .serializers import CategoryRecursiveSerializer, CategorySerializer
 
 
 class CategoryViewSet(ModelViewSet):
-    queryset = Category.objects.filter()
+    queryset = Category.objects.all().order_by("-order")
     serializer_class = CategorySerializer
     lookup_field = "uuid"
 

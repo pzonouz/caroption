@@ -20,14 +20,27 @@ const CategoriesView = ({
         width: "100%",
       }}
     >
-      {categories?.map((c) => (
-        <Box>
+      {categories?.map((c: CategoryType) => (
+        <Box
+          key={c?.uuid}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "space-around",
+            cursor: "pointer",
+            gap: "0.5rem",
+            textAlign: "center",
+            width: "100%",
+          }}
+        >
           <Image
             width={100}
             height={100}
             alt=""
             src={images?.find((i: FileType) => i.uuid === c.image).file}
           />
+          <Typography>{c?.title}</Typography>
         </Box>
       ))}
     </Box>

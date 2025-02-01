@@ -1,8 +1,7 @@
-from rest_framework import serializers
-from rest_framework_recursive.fields import RecursiveField
-
 from files.models import File
 from parameters.serializers import ParametersGroupsSerializer
+from rest_framework import serializers
+from rest_framework_recursive.fields import RecursiveField
 
 from .models import Category
 
@@ -18,16 +17,8 @@ class CategoryRecursiveSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = [
-            "uuid",
-            "title",
-            "description",
-            "image",
-            "status",
-            "parent",
-            "children",
-            "created_at",
-            "updated_at",
+        exclude = [
+            "id",
         ]
 
 
@@ -48,6 +39,7 @@ class CategorySerializer(serializers.ModelSerializer):
             "uuid",
             "title",
             "description",
+            "order",
             "image",
             "parent",
             "status",

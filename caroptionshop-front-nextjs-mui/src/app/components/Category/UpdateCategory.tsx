@@ -1,7 +1,5 @@
 "use client";
 
-// TODO:Code refactor, clean up,Tests,CodeSmells, use AI tools
-
 import { useActionState, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RecursiveSelectOptions } from "../Utils/RecursiveSelect";
@@ -11,7 +9,6 @@ import {
   FormControl,
   FormControlLabel,
   FormHelperText,
-  IconButton,
   InputLabel,
   Modal,
   NativeSelect,
@@ -21,15 +18,9 @@ import {
 } from "@mui/material";
 import Button from "@mui/material/Button";
 import ImageIcon from "@mui/icons-material/Image";
-import {
-  CategoryType,
-  UpdateCategoryAction,
-} from "@/app/actions/categories.action";
-import { FileType } from "@/app/actions/files.action";
+import { UpdateCategoryAction } from "@/app/actions/categories.action";
 import { RootState } from "@/redux-toolkit/Store";
 import { ImageGallery } from "../Image/ImageGallery";
-import Image from "next/image";
-import DeleteIcon from "@mui/icons-material/Delete";
 import Tiptap from "../Utils/Tiptap";
 import { LoadingButton } from "@mui/lab";
 import {
@@ -38,6 +29,8 @@ import {
 } from "../../../redux-toolkit/ImageGallerySlice";
 import { redirect } from "next/navigation";
 import { SelectedImage } from "../Image/SelectedImage";
+import { CategoryType } from "@/types/category";
+import { FileType } from "@/types/file";
 
 const UpdateCategory = ({
   categories,
@@ -100,7 +93,7 @@ const UpdateCategory = ({
               backgroundColor: "white",
             }}
           >
-            <ImageGallery type="single" images={images} />
+            <ImageGallery images={images} />
           </Box>
         </Fade>
       </Modal>
@@ -168,7 +161,18 @@ const UpdateCategory = ({
           </FormHelperText>
         )}
         <Typography component={"p"}>توضیحات</Typography>
-        <Tiptap text={state?.data?.description || text} setText={setText} />
+        <Tiptap
+          editable={true}
+          text={state?.data?.description || text}
+          setText={setText}
+        />
+        <Typography component={"p"}>اولویت</Typography>
+        <TextField
+          type="number"
+          name="order"
+          defaultValue={state?.data?.order || category?.order}
+        />
+
         <FormControlLabel
           sx={{ width: "100%", textAlign: "left" }}
           dir="rtl"

@@ -145,7 +145,13 @@ const CreateCategory = ({
           </FormHelperText>
         )}
         <Typography component={"p"}>توضیحات</Typography>
-        <Tiptap text={text} setText={setText} />
+        <Tiptap text={text} setText={setText} editable={true} />
+        <Typography component={"p"}>اولویت</Typography>
+        <TextField
+          type="number"
+          name="order"
+          defaultValue={state?.data?.order || 0}
+        />
         <FormControlLabel
           sx={{ width: "100%", textAlign: "left" }}
           dir="rtl"
