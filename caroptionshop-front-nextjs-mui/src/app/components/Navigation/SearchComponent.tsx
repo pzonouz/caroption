@@ -15,6 +15,7 @@ import { FileType } from "@/types/file";
 import Image from "next/image";
 
 export default function SearchBar({ images }: { images: string[] }) {
+  console.log(images);
   const [search, setSearch] = useState("");
   const [open, setOpen] = React.useState(false);
 
@@ -24,7 +25,9 @@ export default function SearchBar({ images }: { images: string[] }) {
     ref?.current?.requestSubmit();
   }, [search]);
   const [state, action, loading] = useActionState(SearchAction, null);
-  useEffect(() => {}, [state]);
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
   return (
     <Box
       ref={ref}

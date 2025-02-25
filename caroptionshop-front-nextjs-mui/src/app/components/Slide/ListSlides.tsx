@@ -1,5 +1,4 @@
 "use client";
-import { DeleteMultipleCategoryAction } from "@/app/actions/categories.action";
 import AddIcon from "@mui/icons-material/Add";
 import {
   Box,
@@ -16,34 +15,28 @@ import {
 } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { SelectCategory } from "./SelectCatgory";
 import { useActionState, useEffect, useState } from "react";
 import { ModalComponenet } from "../Utils/ModalComponent";
-import { CreateCategory } from "./CreateCategory";
-import { UpdateCategory } from "./UpdateCategory";
-import { DeleteCategory } from "./DeleteCategory";
 import { LoadingButton } from "@mui/lab";
-import { generateParentCategories } from "@/helperFunctions/generateParentCategories";
-import { CategoryType } from "@/types/category";
+import { SlideType } from "@/types/slide";
 import { FileType } from "@/types/file";
+import { CreateSlide } from "./CreateSlide";
+import Image from "next/image";
 
-const ListCategories = ({
-  categories,
+const ListSlides = ({
+  slides,
   images,
 }: {
-  categories: CategoryType[];
+  slides: SlideType[];
   images: FileType[];
 }) => {
-  const parentCategories: CategoryType[] = generateParentCategories(categories);
-  const [createCategoryOpen, setCreateCategoryOpen] = useState(false);
-  const [updateCategory, setUpdateCategory] = useState(null);
-  const [deleteCategory, setDeleteCategory] = useState(null);
+  const [createSlideOpen, setCreateSlideOpen] = useState(false);
+  const [updateSlide, setUpdateSlide] = useState(null);
+  const [deleteSlide, setDeleteSlide] = useState(null);
 
-  const [selectedCategory, setSelectedCategory] = useState<
-    CategoryType | number
-  >(0);
+  const [selectedSlide, setSelectedSlide] = useState<SlideType | number>(0);
 
-  const [filteredCategories, setFilteredCategories] = useState(categories);
+  const [filteredSlides, setFilteredSlides] = useState(slides);
   const [checkedList, setCheckedList] = useState<string[]>([]);
   const toggleChecked = (value: string) => {
     if (checkedList.includes(value)) {
@@ -52,19 +45,10 @@ const ListCategories = ({
       setCheckedList([...checkedList, value]);
     }
   };
-  const [_state, action, loading] = useActionState(
-    DeleteMultipleCategoryAction.bind(null, checkedList),
-    null,
-  );
-  useEffect(() => {
-    if (selectedCategory) {
-      setFilteredCategories((selectedCategory as CategoryType)?.children || []);
-    } else {
-      setFilteredCategories(
-        categories.filter((category) => category.parent === null),
-      );
-    }
-  }, [selectedCategory, categories]);
+  // const [_state, action, loading] = useActionState(
+  //   DeleteMultipleSlideAction.bind(null, checkedList),
+  //   null,
+  // );
   return (
     <div
       style={{
@@ -76,37 +60,34 @@ const ListCategories = ({
       }}
     >
       <Fab
-        onClick={() => setCreateCategoryOpen(true)}
+        onClick={() => setCreateSlideOpen(true)}
         color="primary"
         sx={{ position: "fixed", left: "1rem", bottom: "1rem" }}
       >
         <AddIcon />
       </Fab>
-      <ModalComponenet
-        open={createCategoryOpen}
-        setOpen={setCreateCategoryOpen}
-      >
-        <CreateCategory categories={categories} images={images} />
+      <ModalComponenet open={createSlideOpen} setOpen={setCreateSlideOpen}>
+        <CreateSlide slides={slides} images={images} />
       </ModalComponenet>
-      <ModalComponenet open={updateCategory} setOpen={setUpdateCategory}>
-        <UpdateCategory
-          categories={categories}
-          images={images}
-          category={updateCategory!}
-        />
-      </ModalComponenet>
-      <ModalComponenet open={deleteCategory} setOpen={setDeleteCategory}>
-        <DeleteCategory
-          category={deleteCategory!}
-          setOpen={setDeleteCategory}
-        />
-      </ModalComponenet>
+      {/* <ModalComponenet open={updateSlide} setOpen={setUpdateSlide}> */}
+      {/*   <UpdateSlide */}
+      {/*     categories={categories} */}
+      {/*     images={images} */}
+      {/*     slide={updateSlide!} */}
+      {/*   /> */}
+      {/* </ModalComponenet> */}
+      {/* <ModalComponenet open={deleteSlide} setOpen={setDeleteSlide}> */}
+      {/*   <DeleteSlide */}
+      {/*     slide={deleteSlide!} */}
+      {/*     setOpen={setDeleteSlide} */}
+      {/*   /> */}
+      {/* </ModalComponenet> */}
 
-      <SelectCategory
-        selectedCategory={selectedCategory}
-        setSelectedCategory={setSelectedCategory}
-        categories={parentCategories}
-      />
+      {/* <SelectSlide */}
+      {/*   selectedSlide={selectedSlide} */}
+      {/*   setSelectedSlide={setSelectedSlide} */}
+      {/*   categories={parentSlides} */}
+      {/* /> */}
       <TableContainer component={Paper} sx={{ width: "100%" }}>
         <Table size="small">
           <TableHead>
@@ -114,15 +95,13 @@ const ListCategories = ({
               <TableCell align="left">
                 <Checkbox
                   onChange={() => {
-                    if (checkedList.length == filteredCategories.length) {
+                    if (checkedList.length == filteredSlides.length) {
                       setCheckedList([]);
                       return;
                     }
-                    setCheckedList(
-                      filteredCategories?.map((item) => item.uuid!),
-                    );
+                    setCheckedList(filteredSlides?.map((item) => item.uuid!));
                   }}
-                  checked={checkedList.length == filteredCategories.length}
+                  checked={checkedList.length == filteredSlides.length}
                   value={"uuid"}
                 />
               </TableCell>
@@ -131,10 +110,15 @@ const ListCategories = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredCategories?.map((row) => (
+            {filteredSlides?.map((row) => (
               <TableRow
                 key={row.uuid}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "end",
+                  "&:last-child td, &:last-child th": { border: 0 },
+                }}
               >
                 <TableCell component="th" scope="row">
                   <Checkbox
@@ -145,16 +129,26 @@ const ListCategories = ({
                     value={row?.uuid || "uuid"}
                   />
                 </TableCell>
-                <TableCell align="left">{row.title}</TableCell>
                 <TableCell align="center">
+                  <Image
+                    alt=""
+                    src={
+                      images?.filter((item) => item?.uuid == row?.image)?.[0]
+                        ?.file
+                    }
+                    width={100}
+                    height={20}
+                  />
+                </TableCell>
+                <TableCell sx={{ display: "flex", alignItems: "center" }}>
                   <IconButton
                     onClick={() => {
-                      setUpdateCategory(row);
+                      setUpdateSlide(row);
                     }}
                   >
                     <EditIcon color="primary" />
                   </IconButton>
-                  <IconButton onClick={() => setDeleteCategory(row)}>
+                  <IconButton onClick={() => setDeleteSlide(row)}>
                     <DeleteIcon color="error" />
                   </IconButton>
                 </TableCell>
@@ -180,4 +174,4 @@ const ListCategories = ({
   );
 };
 
-export { ListCategories };
+export { ListSlides };

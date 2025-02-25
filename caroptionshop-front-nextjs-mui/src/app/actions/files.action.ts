@@ -3,7 +3,7 @@
 import { revalidateTag } from "next/cache";
 
 const UploadAction = async (_prevState: any, formData: FormData) => {
-  const res = await fetch(`${process.env.BACKEND_URL}/files/`, {
+  const res = await fetch(`${process.env.BACKEND_URL}/files`, {
     method: "POST",
     body: formData,
   });

@@ -2,6 +2,7 @@ import { CategoryType } from "@/types/category";
 import { FileType } from "@/types/file";
 import { Box, Typography } from "@mui/material";
 import Image from "next/image";
+import Link from "next/link";
 
 const CategoriesView = ({
   images,
@@ -22,6 +23,8 @@ const CategoriesView = ({
     >
       {categories?.map((c: CategoryType) => (
         <Box
+          component={Link}
+          href={`/category/${c?.uuid}`}
           key={c?.uuid}
           sx={{
             display: "flex",
@@ -38,7 +41,7 @@ const CategoriesView = ({
             width={100}
             height={100}
             alt=""
-            src={images?.find((i: FileType) => i.uuid === c.image).file}
+            src={images?.find((i: FileType) => i.uuid === c.image)?.file}
           />
           <Typography>{c?.title}</Typography>
         </Box>

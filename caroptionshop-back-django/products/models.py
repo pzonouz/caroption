@@ -37,3 +37,6 @@ class Product(BaseModel):
         null=True, blank=True, validators=[MaxValueValidator(100)]
     )
     review = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return str(self.uuid)

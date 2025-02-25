@@ -39,7 +39,6 @@ const CreateProductAction = async (
   validatedData.data.quantity = validatedData.data.quantity?.replace(/,/g, "");
   validatedData.data.price = validatedData.data.price?.replace(/,/g, "");
   validatedData.data.price2 = validatedData.data.price2?.replace(/,/g, "");
-  console.log(validatedData.data);
   const res = await fetch(`${process.env.BACKEND_URL}/products/`, {
     method: "POST",
     headers: {
@@ -144,7 +143,7 @@ const DeleteProductAction = async (
     },
   });
   if (res?.ok) {
-    revalidateTag("category");
+    revalidateTag("product");
     return { success: true };
   }
   return { success: false };
@@ -156,7 +155,7 @@ const DeleteMultipleProductAction = async (
   _formData: FormData,
 ) => {
   const res = await fetch(
-    `${process.env.BACKEND_URL}/products/multiple-delete/`,
+    `${process.env.BACKEND_URL}/products/multiple-delete`,
     {
       method: "POST",
       headers: {
@@ -166,8 +165,8 @@ const DeleteMultipleProductAction = async (
     },
   );
   if (res?.ok) {
-    revalidateTag("category");
-    redirect("/admin/parameters-groups");
+    revalidateTag("product");
+    redirect("/admin/products");
   }
   return { success: false };
 };

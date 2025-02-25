@@ -35,15 +35,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Category
-        fields = [
-            "uuid",
-            "title",
-            "description",
-            "order",
-            "image",
-            "parent",
-            "status",
-            "parameter_groups",
-            "created_at",
-            "updated_at",
+        exclude = [
+            "id",
         ]

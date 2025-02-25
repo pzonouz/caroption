@@ -23,7 +23,7 @@ INSTALLED_APPS = [
     "parameters",
     "specifications",
     "search",
-    "slider",
+    "slides",
 ]
 
 MIDDLEWARE = [

@@ -16,17 +16,6 @@ def FullTextSearch(request):
     search_vector = SearchVector("title", weight="A", config="english") + SearchVector(
         "description", weight="B", config="english"
     )
-
-    # products = (
-    #     Product.objects.filter(
-    #         Q(title__icontains=query) | Q(description__icontains=query)
-    #     )
-    #     .annotate(
-    #         search=search_vector,
-    #         rank=SearchRank(search_vector, search_query),
-    #     )
-    #     .order_by("-rank")
-    # )
     products = (
         Product.objects.filter(Q(title__icontains=query))
         .annotate(

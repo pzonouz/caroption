@@ -1,7 +1,7 @@
 from rest_framework.routers import SimpleRouter
 
-from .views import SliderViewset
+from .views import SlidesViewset
 
 router = SimpleRouter()
-router.register("", SliderViewset, basename="slider")
+router.register("", SlidesViewset, basename="slides")
 urlpatterns = router.urls
